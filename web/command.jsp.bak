@@ -1,0 +1,376 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*"  errorPage="" %>
+<%@ page import="java.sql.*,databaseconnection.*"%>
+    <%
+		String uname=(String)session.getAttribute("uname");	
+		
+Connection con = null;
+Statement stmt = null;
+ResultSet rs1 = null;
+String fname=null;
+String lname=null;
+
+System.out.println("This is Home page..::" +uname);
+try {
+	
+con=databasecon.getconnection();
+
+stmt = con.createStatement();
+
+rs1 = stmt.executeQuery("select fname,lname from user_details where uname='"+uname+"' ");
+
+while(rs1.next()) {
+
+ fname = rs1.getString("fname");
+ lname = rs1.getString("lname");
+} 
+} catch (Exception e) {
+
+out.println("Unable To Display image");
+
+out.println("Image Display Error=" + e.getMessage());
+
+return;
+
+} finally {
+
+try {
+
+
+
+stmt.close();
+
+con.close();
+
+} catch (SQLException e) {
+
+e.printStackTrace();
+
+}
+
+}
+
+
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="true" name="mssmarttagspreventparsing" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<title>s h a r e &nbsp;y o u  r &nbsp; I d e a s &nbsp; &amp; &nbsp; T h o u g h t s</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<!-- IE fixes -->
+	<!--[if lte IE 6]>
+	<style type="text/css">
+		#ccnt {_height:1200px;}
+		.post {padding:0 0 25px;}
+	</style>
+	<![endif]-->
+	<script type="text/javascript">
+	/*
+	 * Simple JS function for setting the search value
+	 */
+	function clS(t){
+		var srch = document.getElementById('s'), val = srch.value.toString().toLowerCase(), re = /^\s+$/;
+		if(t) {
+			if(val == 'search...' || val == 'search'){ 
+				srch.value = '';
+			}
+		} else {
+			if(val == 'search...' || val == 'search' || val == '' || re.test(val)) {
+				srch.value = 'search...';
+			}
+		}
+	}
+	</script>
+     <style>
+	a
+	{
+		
+		color:#CF3;
+		text-decoration:none;
+	}
+	a:hover
+	{
+		
+		text-decoration:underline;
+		color:#FFF;
+		
+	}
+	.cmt
+	{
+		border:1px #999 solid;
+		border-radius:5px;
+		box-shadow:5px 5px 50px #936;
+		-moz-box-shadow:5px 5px 50px #936;
+		-o-box-shadow:5px 5px 50px #936;
+		-webkit-box-shadow:5px 5px 50px #936;
+	}
+	#cnnn
+	{
+		border:#CCC 2px groove;
+		border-radius:5px;
+		box-shadow:5px 5px 50px #999;
+	}
+	
+	</style>
+    <script>
+  function validate()
+	{
+	
+	   if( document.myform.cmd.value == "" )
+ 		  {
+  		   alert( "Please provide your command!" );
+    		 document.myform.cmd.focus() ;
+    		 return false;
+  		 }
+	}
+	</script>
+
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="hdr">
+
+	<!-- Search form -->
+<div style="margin-top:-25px;float:right;height:30px;width:400px;margin-right:-100px;">
+	  
+     <p align="right" style="margin-right:15px;font-family:'Palatino Linotype','Book Antiqua', Palatino, serif;font-size:24px;font-size:24px;padding-top:5px;">
+      <span style="margin-right:30px;color:#FFF;">Welcome &nbsp;<font style="color:#FF3;"><% out.println(uname); %></font>  </span>
+	  <span style="margin-right:15px;font-family:'Palatino Linotype','Book Antiqua', Palatino, serif;font-size:24px;font-size:24px;
+      padding-top:5px;"><a href="jsp/logout.jsp" title="you want to logout">Logout</a></span>
+      </p>
+      
+    </div>
+	
+	<!-- Logo -->
+	<div id="logo">
+                <a href="#"></a>
+	</div>
+	
+	<!-- Slogan -->
+	<p class="htit" style="margin-left:-70px;">s h a r e &nbsp;y o u  r &nbsp; I d e a s &nbsp; &amp; &nbsp; T h o u g h t s </p>
+
+	<!-- Main Menu -->
+	<div id="menu">
+		<a class="menu_freeb" href="home.jsp">Home</a>
+		<a class="menu_grap" href="myprofile.jsp">Your Profile</a>
+		<a class="menu_fnt" href="newpost.jsp">New Post</a>
+
+	</div>
+    
+<!--    <marquee behavior="scroll" direction="left" scrollamount="4" style="font-size:22px;color:#0FF;margin-top:-10px;" >www.chennaisunday.com</marquee>
+-->    
+</div>
+<!-- Main Container -->
+<div id="cnt">
+	
+    
+	<!-- Left Column -->
+	<div id="lcnt">  
+  <img src="jsp/f2.jsp?<%=uname%>" border="0" align="left" style="margin-top:-170px;margin-left:-82px; width:156px;height:156px;" class="profileimg"  />
+    <span style="font-size:18px;color:#900;margin-left:-80px;"><b><%=fname%> <%=lname%></b></span>
+
+
+
+
+<!-- Friends -->
+<!--		<h3 class="sidetit_l" style="margin-top:21px;">Your Friends</h3>
+		<a class="friends" href="#">Orchida</a>
+		<a class="friends" href="#">DesignAir</a>
+		<a class="friends" href="#">V.S.S.R.</a>
+		<a class="friends" href="#">Decoder</a>
+-->        
+	</div>
+    
+    
+	<div class="ccnt" id="cnnn"  style="margin-bottom:20px;margin-top:-20px;">
+
+    
+<%
+String n=request.getQueryString();
+
+session.setAttribute("n",n);
+
+String cur_date=null;
+int slno=0;
+
+try {
+	
+con=databasecon.getconnection();
+
+stmt = con.createStatement();
+
+rs1 = stmt.executeQuery("select sl_no,cur_date from post where sl_no='"+n+"' ");
+
+while(rs1.next()) {
+
+ cur_date = rs1.getString("cur_date");
+ slno=rs1.getInt("sl_no");
+
+%>
+	<!-- Main - Center Column -->
+			<!-- Post Title - Permalink -->
+		<div class="post">
+ 
+ 			<!--<h2>
+				<a class="tit" href="#">Logo Design Process Tutorial</a>
+			</h2>-->		
+			<!-- Post Details -->
+			<!--<div class="post_tit">
+				<span class="cld">
+               </span>
+				<a  href="#"><span class="pby">Posted by:</span></a>
+				<a href="#login-box? id="comm" class="login-window">22 comments</a>
+			</div>-->
+	 <img src="jsp/postdisplay.jsp?<%=slno%>" style="margin-top:-20px;margin-left:10px;margin-bottom:25px;max-height:370px;max-width:450px;" />
+
+        </div>
+        
+<%
+}
+} catch (Exception e) {
+
+out.println("Unable To Display image");
+
+out.println("Image Display Error=" + e.getMessage());
+
+return;
+
+}
+finally {
+
+try {
+
+
+
+stmt.close();
+
+con.close();
+
+} catch (SQLException e) {
+
+e.printStackTrace();
+
+}
+
+}
+
+%>
+		
+       
+      
+        
+        
+		<!-- Center Column bottom Borders -->
+		<div id="dummy"></div>
+	</div>
+    <form name="myform" action="jsp/cmdinsert.jsp?<%=uname%>" method="post" onsubmit="return validate()">
+       <table align="center" ><tr><td>
+       <font color="#000000" style="font-weight:bold;font-size:16px;">Command : </font>
+       <input type="text" name="cmd" id="cmd" class="aa" style="width:450px;height:25px;" /> 
+       </td></tr>
+       
+       <tr align="center"><td height="5">
+       
+       </td></tr>
+       
+       <tr align="right"><td>
+        <input type="submit" value="POST" size="40" style="border:#000000 solid 1px;" />  
+       </td></tr>
+       </table>
+       </form>
+       
+       
+       
+       
+       
+       
+       
+       <table align="left" width="530" style="margin-left:235px;margin-top:15px; padding-left:20px;padding-top:15px;" class="cmt" >
+       <%
+	
+  // String uname1= request.getParameter("uname1");
+  
+   //String pass1= request.getParameter("pass1");
+   //out.print(pass1);
+   Connection con1 = null;
+	String userid=null;
+	String command=null;
+ try
+ {
+  con1=databasecon.getconnection();
+  Statement st1=con1.createStatement();
+  ResultSet rs = st1.executeQuery("select userid,command from commands where imageid='"+n+"';");
+  while (rs.next()) 
+			{
+				
+				userid=rs.getString("userid");
+				command=rs.getString("command");
+				  		
+			
+				%>	
+				<tr>
+                <td style="font-size:14px;color:#300;"><a href="#">
+                <img src="jsp/f2.jsp?<%=userid%>" height="40" width="60" /><br/>
+                <font face="MS Serif, New York, serif" style="font-size:16px;color:#F60;font-weight:600;">
+				<%=userid%></font></a></td>
+                <td align="left" style="float:left;padding-top:10px;">
+				<font face="Lucida Sans Unicode, Lucida Grande, sans-serif" style="font-size:16px;color:#960;font-weight:600;">
+				<%=command%></font></td></tr>
+               	<tr align="center"><td height="10" style="border-top:#000 dashed 1px;"></td></tr>			
+   				
+				
+			<%	
+			
+										 
+			 
+	}
+				
+   }
+	catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	   
+	   %>
+       
+       
+       </table>
+       
+       
+       
+       
+
+	<!-- Right Column -->
+	<!--<div id="rcnt">
+		<div class="rslink">
+		<h3 class="sidetit_l">Your Friends</h3>
+			<a class="about" href="#">Account Settings</a>
+			<a class="contact" href="editprofile.jsp">Edit Profile</a>
+			<a class="faq" href="#">Friends</a>
+			<a class="terms" href="newpost.jsp">New Post</a>
+			<a class="advertise" href="#">Find Friends</a>
+		</div>
+
+		</div>-->
+	<br style="clear:both;"/>
+</div>
+
+<!-- Footer -->
+<div id="foo">
+	<div id="foot_menu">
+		
+		<span class="f_left">&copy; 2013 SLPPSND. All rights reserved.</span>
+
+	</div>
+</div>
+
+
+
+</body>
+</html>
+
